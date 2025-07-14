@@ -107,16 +107,13 @@ def map4_view():
 
     for data in weather_data_list:
         city_name = data['city_name']
-        weather_data = None
-        try:
-            weather_data = weather_data_list
-        except Exception as e:
-            print("Weather API failed:", e)
-            weather_data = None
-    
+        weather_data = weather_data_list
+        # Default values
         dewpt_f = None
-        if isinstance(weather_data, dict) and 'dewpt' in weather_data:
-            dewpt_f = (weather_data['dewpt'] * 9/5) + 32
+    
+        if weather_data and isinstance(weather_data, dict):
+            if 'dewpt' in weather_data and weather_data['dewpt'] is not None:
+                dewpt_f = (weather_data['dewpt'] * 9/5) + 32
         coords = locations[city_name]
         lats.append(coords['lat'])
         lons.append(coords['lon'])
