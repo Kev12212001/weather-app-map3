@@ -107,7 +107,10 @@ def map4_view():
 
     for data in weather_data_list:
         city_name = data['city_name']
-        dewpt_f = (data['dewpt'] * 9/5) + 32  # Cloud cover percentage
+        if weather_data and 'dewpt' in weather_data:
+            dewpt_f = (weather_data['dewpt'] * 9/5) + 32
+        else:
+            dewpt_f = None  # or set a default, or return an error message/log it
         coords = locations[city_name]
         lats.append(coords['lat'])
         lons.append(coords['lon'])
