@@ -110,7 +110,7 @@ def map4_view():
         weather_data = None  # Ensure it's defined no matter what
         # Now try to assign it normally
         try:
-            weather_data = get_weather_data()  # or however you're setting it
+            weather_data = weather_data_list  # or however you're setting it
         except Exception as e:
             print("Failed to get weather data:", e)
         
