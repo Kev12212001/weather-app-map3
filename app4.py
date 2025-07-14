@@ -107,10 +107,17 @@ def map4_view():
 
     for data in weather_data_list:
         city_name = data['city_name']
+        weather_data = None  # Ensure it's defined no matter what
+        # Now try to assign it normally
+        try:
+            weather_data = get_weather_data()  # or however you're setting it
+        except Exception as e:
+            print("Failed to get weather data:", e)
+        
         if weather_data and 'dewpt' in weather_data:
-            dewpt_f = (weather_data['dewpt'] * 9/5) + 32
+            dewpt_f = (weather_data['dewpt'] * 9 / 5) + 32
         else:
-            dewpt_f = None  # or set a default, or return an error message/log it
+            dewpt_f = None  # or some default / fallback
         coords = locations[city_name]
         lats.append(coords['lat'])
         lons.append(coords['lon'])
