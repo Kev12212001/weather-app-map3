@@ -7,5 +7,3 @@ cartopy==0.22.0
 pytz==2024.1
 gunicorn==21.2.0
 
-
-
