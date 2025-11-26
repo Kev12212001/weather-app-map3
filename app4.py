@@ -137,24 +137,89 @@ def map4_view():
     # Interpolate the cloud cover data onto the grid (using scipy's griddata)
     grid_dewpoint = griddata((lons, lats), dewpoints, (lon, lat), method='cubic')
     # Plot the contour map with color fill
-    dew_levels = np.linspace(30, 80, 21)  # Increase the number of levels for a stronger gradient
+    dew_levels = np.linspace(0, 100, 81)  # Increase the number of levels for a stronger gradient
     # Define more colors for a stronger gradient (more intermediate colors)
-    colors = [
-        '#0000FF',  # Blue for cool temperatures
-        '#0099FF',  # Lighter blue
-        '#00FFFF',  # Cyan
-        '#00FF00',  # Green
-        '#FFFF00',  # Yellow
-        '#FF8000',  # Orange
-        '#FF0000'   # Red for hot temperatures
-    ]
+colors = [
+    # --- PURPLE END ---
+    '#3A00A8',
+    '#5000C8',
+    '#6600E0',
+    '#7A0CFF',
+    '#8F28FF',
+    '#A244FF',
+
+    # --- BLUE RANGE ---
+    '#0010FF',
+    '#0028FF',
+    '#003CFF',
+    '#005AFF',
+    '#0078FF',
+    '#0096FF',
+
+    # --- CYAN RANGE ---
+    '#00AFFF',
+    '#00C4FF',
+    '#00D8FF',
+    '#00ECFF',
+    '#00F8FF',
+    '#00FFFF',
+
+    # --- GREEN RANGE ---
+    '#00FFB0',
+    '#00FF80',
+    '#00FF40',
+    '#00FF10',
+    '#20FF00',
+    '#50FF00',
+    '#80FF00',
+    '#A0FF00',
+
+    # --- YELLOW RANGE ---
+    '#C8FF00',
+    '#E0FF00',
+    '#F2FF00',
+    '#FFFF00',
+    '#FFEE00',
+    '#FFD800',
+
+    # --- ORANGE RANGE ---
+    '#FFC000',
+    '#FFA400',
+    '#FF8A00',
+    '#FF7000',
+    '#FF5800',
+    '#FF4000',
+
+    # --- RED RANGE ---
+    '#FF2800',
+    '#FF1400',
+    '#FF0000',
+    '#E20000',
+    '#CC0000',
+    '#B80000',
+
+    # --- PINK RANGE ---
+    '#FF0060',
+    '#FF2080',
+    '#FF40A0',
+    '#FF66C0',
+    '#FF8CE0',
+    '#FFAAF0',
+
+    # --- WHITE END ---
+    '#FFDFFC',
+    '#FFEFFC',
+    '#FFF6FD',
+    '#FFFFFF'
+]
+
 
     # Create a linear segmented colormap with the gray shades
     cmap = mcolors.LinearSegmentedColormap.from_list('custom_gradient', colors)
     contour = ax.contourf(lon, lat, grid_dewpoint, levels= dew_levels, cmap=cmap, alpha= 0.6, transform=ccrs.PlateCarree())
     # Add colorbar for cloud cover
     cbar = fig.colorbar(contour, ax=ax, orientation="vertical", shrink=0.5, label="Dewpoint (°F)")
-    cbar.set_ticks(np.arange(30, 80, 2))
+    cbar.set_ticks(np.arange(0, 100, 5))
 
     # Step 5: Plot data for each location (cities)
     for city, coords in locations.items():
@@ -411,3 +476,4 @@ def fetch_weather_data(city, coords):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
